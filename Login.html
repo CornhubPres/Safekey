@@ -56,7 +56,7 @@
          var password = document.getElementById('password').value;
 
          if (username === 'user' && password === 'password') {
-           alert('Login Successful!');
+           window.location.href = 'App.js';
          } else {
            alert('Incorrect username or password');
            document.getElementById('username').value = "";
