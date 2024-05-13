@@ -3,12 +3,14 @@ import {Button, RadioButton, TextInput} from 'react-native-paper';
 import axios from 'axios';
 import { Formik } from 'formik';
 
-export default function StoreNewPassword() {
+export default function StoreNewPassword() {  
+    const userEmail = AsyncStorage.getItem("userEmail")
     return(
     <View>
         <Text>Store</Text>
         <Formik
-        initialValues={{email:"", password:"", type:"",shortName:"",websiteORdevice:"",userName:""}}
+        enableReinitialize={true}
+        initialValues={{email: userEmail, password:"", type:"",shortName:"",websiteORdevice:"",userName:""}}
         onSubmit={(values) => {
             axios.post("http://192.168.100.20:3001/save",{email: "fisheater@gmail.com",password: values.password,type: values.type,shortName: values.shortName,websiteORdevice: values.websiteORdevice,userName: values.userName})
             .then((res) => {
