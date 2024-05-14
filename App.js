@@ -9,6 +9,7 @@ import UpdateUserDetails from './UpdateUserDetails';
 import StoreNewPassword from './StoreNewPassword';
 import ViewAllPasswords from './ViewAllPasswords';
 import GeneratePassword from './GeneratePassword';
+import Register from './Register';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Login">
         <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="Register" component={Register} />
         <Drawer.Screen name="UpdateUserDetails" component={UpdateUserDetails} />
         <Drawer.Screen name="StoreNewPassword" component={StoreNewPassword} />
         <Drawer.Screen name="ViewAllPasswords" component={ViewAllPasswords} />

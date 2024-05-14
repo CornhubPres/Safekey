@@ -15,49 +15,59 @@ export default function UpdateUserDetails() {
       setPassword (await AsyncStorage.flushGetRequests("password")); }
       getuserNameANDpassword()
   }, [])  
-
     return(
-        <View>
-      <Text>Login</Text>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{email: userName?userName:"", password: password?password:"", newEmail: "", newPassword: ""}}
-        onSubmit={(values) => {
-          axios.put("http://192.168.100.20:3001/changeuserdetails",values)
-          .then (async(res) => {
-            console.log(res.data)
-          }).catch((error) => console.log(error))
-        }}
-      >
-        {(props) => (
-          <View>
-           <TextInput
-              label="Email"
-              value={props.values.email}
-              onChangeText={props.handleChange("email")}
-          />  
-          <TextInput
-              label="Password"
-              value={props.values.password}
-              onChangeText={props.handleChange("password")}
-          />  
-          <TextInput
-              label="New Email"
-              value={props.values.newEmail}
-              onChangeText={props.handleChange("newEmail")}
-          />  
-          <TextInput
-              label="New Password"
-              value={props.values.newPassword}
-              onChangeText={props.handleChange("newPassword")}
-              />
-          <Button
-            onPress={props.handleSubmit}>
-              Update
-          </Button>
-          </View>
-        )}
-      </Formik>
+      <View style={{flex: 1, backgroundColor: '#3E3E3E', padding: 30, justifyContent: 'center', gap: 10}}>
+      {!userName? (<View>
+                <Text style={{fontSize: 25, textAlign: 'center', color: '#fff', marginBottom: 30}}>
+                    Please Login
+                </Text>
+                <Button mode='contained' onPress={() => {navigation.navigate("Login")}}>Go to login</Button>
+            </View>): (
+              <View>
+                <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>Update User</Text>
+                <Formik
+                  enableReinitialize={true}
+                  initialValues={{email: userName?userName:"", password: password?password:"", newEmail: "", newPassword: ""}}
+                  onSubmit={(values) => {
+                    axios.put("http://192.168.100.20:3001/changeuserdetails",values)
+                    .then (async(res) => {
+                      console.log(res.data)
+                    }).catch((error) => console.log(error))
+                  }}
+                >
+                  {(props) => (
+                    <View>
+                    <TextInput
+                        label="Email"
+                        value={props.values.email}
+                        onChangeText={props.handleChange("email")}
+                    />  
+                    <TextInput
+                        label="Password"
+                        value={props.values.password}
+                        onChangeText={props.handleChange("password")}
+                    />  
+                    <TextInput
+                        label="New Email"
+                        value={props.values.newEmail}
+                        onChangeText={props.handleChange("newEmail")}
+                    />  
+                    <TextInput
+                        label="New Password"
+                        value={props.values.newPassword}
+                        onChangeText={props.handleChange("newPassword")}
+                        />
+                    <Button
+                      mode='contained'
+                      labelStyle={{fontSize: 20, fontWeight: 700}}
+                      onPress={props.handleSubmit}>
+                        Update
+                    </Button>
+                    </View>
+                  )}
+                </Formik>
+              </View>
+            )}
     </View>
     )
 }

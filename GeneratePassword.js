@@ -27,12 +27,15 @@ export default function GeneratePassword() {
         setPassword(password);
     }
     return(
-        <View>
-            <Text>
+        <View style={{flex: 1, backgroundColor: '#747474', justifyContent: 'center', gap: 10}}>
+            <Text style={{fontSize: 18, textAlign: 'center', color: 'white'}}>
                 {password}
             </Text>
-            <Button onPress = {createPassword}>
-            Create Password
+            <Button 
+                mode='contained'
+                labelStyle={{fontSize: 20, fontWeight: 700}}
+                onPress = {createPassword}>
+                Create Password
             </Button>
         </View>
     );

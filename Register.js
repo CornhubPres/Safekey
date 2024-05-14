@@ -5,32 +5,17 @@ import { Button, TextInput } from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Login({navigation}){
-
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-
-  useEffect ( () => {
-    const getuserNameANDpassword = async () => {setUserName (await AsyncStorage.getItem("userName"));
-    setPassword (await AsyncStorage.flushGetRequests("password")); }
-    getuserNameANDpassword()
-}, [])
-
+export default function Register({navigation}){
   return(
     <View style={{flex: 1, backgroundColor: '#3E3E3E', padding: 30, justifyContent: 'center', gap: 10}}>
-      <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>Login</Text>
+      <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>Register</Text>
       <Formik
         enableReinitialize={true}
-        initialValues={{email: userName?userName:"", password: password?password:""}}
+        initialValues={{email: "", password: ""}}
         onSubmit={(values) => {
-          axios.post("http://192.168.100.20:3001/signin", values)
-          .then (async(res) => {
-            if(res.data.message === "user signin"){
-              await AsyncStorage.setItem("userName", values.email)
-              await AsyncStorage.setItem("password", values.password)
-              await AsyncStorage.setItem("userID", res.data.user._id)
-              navigation.navigate("ViewAllPasswords")
-            }
+          axios.post("http://192.168.100.20:3001/createaccount", values)
+          .then (async(res) => {       
+              navigation.navigate("Login")
           }).catch((error) => console.log(error))
         }}
       >
@@ -50,17 +35,16 @@ export default function Login({navigation}){
             mode='contained'
             labelStyle={{fontSize: 20, fontWeight: 700}}
             onPress={props.handleSubmit}>
-              Login
+              Register
           </Button>
           </View>
         )}
       </Formik>
-      <Text style={{fontSize: 15, textAlign: 'center', color: 'white'}}>Dont' have an account?</Text>
+      <Text style={{fontSize: 15, textAlign: 'center', color: 'white'}}>Already have an account?</Text>
       <Button
-        mode='contained'
         labelStyle={{fontSize: 20, fontWeight: 700}}
-        onPress={() => {navigation.navigate("Register")}}>
-            Register
+        onPress={() => {navigation.navigate("Login")}}>
+            Login
         </Button>
     </View>
   )
