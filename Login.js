@@ -18,7 +18,7 @@ export default function Login({navigation}){
 
   return(
     <View style={{flex: 1, backgroundColor: '#3E3E3E', padding: 30, justifyContent: 'center', gap: 10}}>
-      <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>Login</Text>
+      <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>SafeKey</Text>
       <Formik
         enableReinitialize={true}
         initialValues={{email: userName?userName:"", password: password?password:""}}
@@ -55,7 +55,7 @@ export default function Login({navigation}){
           </View>
         )}
       </Formik>
-      <Text style={{fontSize: 15, textAlign: 'center', color: 'white'}}>Dont' have an account?</Text>
+      <Text style={{fontSize: 15, textAlign: 'center', color: 'white'}}>Don't have an account?</Text>
       <Button
         mode='contained'
         labelStyle={{fontSize: 20, fontWeight: 700}}

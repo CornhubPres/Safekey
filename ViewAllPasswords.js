@@ -9,8 +9,8 @@ export default function ViewAllPasswords({ navigation }) {
     const [userId, setUserId] = useState('')
 
     const getallPasswords = async () => { setUserId(await AsyncStorage.getItem("userID"))
-    axios.get(`http://192.168.100.20:3001/save/${userID}`)
-    .then((res) => { console.log(res.data)
+    axios.get(`http://192.168.100.20:3001/save/:userID`)
+    .then((res) => {
         setPasswords(res.data)
     }).catch((error) => console.log(error))}
 
@@ -32,11 +32,12 @@ export default function ViewAllPasswords({ navigation }) {
                     <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>View Passwords</Text>
                     {passwords.length !== 0 && passwords.map((password)=>(
                         <View key={password._id}>
-                            <Text>type: {password.type}</Text>
-                            <Text>shortName: {password.shortName}</Text>
-                            <Text>website OR device: {password.websiteORdevice}</Text>
-                            <Text>userName: {password.userName}</Text>
-                            <Text>password: {password.password}</Text> 
+                            <Divider />
+                            <Text style={{ fontSize: 16, color: 'white'}}>type: {password.type}</Text>
+                            <Text style={{ fontSize: 16, color: 'white'}}>shortName: {password.shortName}</Text>
+                            <Text style={{ fontSize: 16, color: 'white'}}>website OR device: {password.websiteORdevice}</Text>
+                            <Text style={{ fontSize: 16, color: 'white'}}>userName: {password.userName}</Text>
+                            <Text style={{ fontSize: 16, color: 'white'}}>password: {password.password}</Text> 
                             <Divider />
                         </View>
                     ))}
