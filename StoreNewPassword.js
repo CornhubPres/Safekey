@@ -2,9 +2,18 @@ import { StyleSheet, Text, View } from 'react-native';
 import {Button, RadioButton, TextInput} from 'react-native-paper';
 import axios from 'axios';
 import { Formik } from 'formik';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StoreNewPassword() {  
-    const userEmail = AsyncStorage.getItem("userEmail")
+
+    const [userEmail, setuserEmail] = useState("");
+
+    useEffect (() => {
+        const getuserEmail = async () => {setuserEmail (await AsyncStorage.getItem("userEmail")) }
+        getuserEmail()
+    }, [])
     return(
     <View>
         <Text>Store</Text>

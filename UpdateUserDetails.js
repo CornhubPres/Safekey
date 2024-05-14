@@ -1,10 +1,63 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {Button, RadioButton, TextInput} from 'react-native-paper';
 import axios from 'axios';
 import { Formik } from 'formik';
+import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UpdateUserDetails() {
+
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+  
+    useEffect ( () => {
+      const getuserNameANDpassword = async () => {setUserName (await AsyncStorage.getItem("userName"));
+      setPassword (await AsyncStorage.flushGetRequests("password")); }
+      getuserNameANDpassword()
+  }, [])  
+
     return(
-        <Text>Update</Text>
-    );
+        <View>
+      <Text>Login</Text>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{email: userName?userName:"", password: password?password:"", newEmail: "", newPassword: ""}}
+        onSubmit={(values) => {
+          axios.put("http://192.168.100.20:3001/changeuserdetails",values)
+          .then (async(res) => {
+            console.log(res.data)
+          }).catch((error) => console.log(error))
+        }}
+      >
+        {(props) => (
+          <View>
+           <TextInput
+              label="Email"
+              value={props.values.email}
+              onChangeText={props.handleChange("email")}
+          />  
+          <TextInput
+              label="Password"
+              value={props.values.password}
+              onChangeText={props.handleChange("password")}
+          />  
+          <TextInput
+              label="New Email"
+              value={props.values.newEmail}
+              onChangeText={props.handleChange("newEmail")}
+          />  
+          <TextInput
+              label="New Password"
+              value={props.values.newPassword}
+              onChangeText={props.handleChange("newPassword")}
+              />
+          <Button
+            onPress={props.handleSubmit}>
+              Update
+          </Button>
+          </View>
+        )}
+      </Formik>
+    </View>
+    )
 }
