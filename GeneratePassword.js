@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View,Text, } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 export default function GeneratePassword() {
-    const[password, setPassword] = useState("");
+    const [password, setPassword] = useState("");
 
     function createPassword(){
         const length = 8;
@@ -24,19 +24,17 @@ export default function GeneratePassword() {
             password += allChars[Math.floor(Math.random() * allChars.length)];
         }
 
-        return password;
+        setPassword(password);
     }
     return(
-        <view>
+        <View>
             <Text>
                 {password}
             </Text>
-            <Button onClick = {()=>{
-                setPassword(createPassword())
-            }}>
+            <Button onPress = {createPassword}>
             Create Password
             </Button>
-        </view>
+        </View>
     );
 }
 
