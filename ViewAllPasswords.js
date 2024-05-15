@@ -9,9 +9,9 @@ export default function ViewAllPasswords({ navigation }) {
     const [userId, setUserId] = useState('')
 
     const getallPasswords = async () => { setUserId(await AsyncStorage.getItem("userID"))
-    axios.get(`http://192.168.100.20:3001/save/:userID`)
+    axios.get(`http://192.168.100.20:3001/save/${userId}`)
     .then((res) => {
-        setPasswords(res.data)
+         setPasswords(res.data)
     }).catch((error) => console.log(error))}
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function ViewAllPasswords({ navigation }) {
             </View>):(
                 <View>
                     <Text style={{fontSize: 25, color: 'white'}}>Welcome User</Text>
-                    <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>View Passwords</Text>
+                    <Text style={{fontSize: 25, textAlign: 'center', color: 'white'}}>View Passwords</Text>{console.log(userId)}
                     {passwords.length !== 0 && passwords.map((password)=>(
                         <View key={password._id}>
                             <Divider />
