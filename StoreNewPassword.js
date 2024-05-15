@@ -28,7 +28,7 @@ export default function StoreNewPassword({navigation}) {
                 enableReinitialize={true}
                 initialValues={{email: userEmail, password:"", type:"",shortName:"",websiteORdevice:"",userName:""}}
                 onSubmit={(values) => {
-                    axios.post("http://192.168.100.20:3001/save",{email: values.email,password: values.password,type: values.type,shortName: values.shortName,websiteORdevice: values.websiteORdevice,userName: values.userName})
+                    axios.post(`${process.env.EXPO_PUBLIC_API_SERVERURL}/save`,{email: values.email,password: values.password,type: values.type,shortName: values.shortName,websiteORdevice: values.websiteORdevice,userName: values.userName})
                     .then((res) => {
                     console.log(res.data)
                     }).catch((error) => console.log(error))

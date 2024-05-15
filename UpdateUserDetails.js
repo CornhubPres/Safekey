@@ -29,7 +29,7 @@ export default function UpdateUserDetails() {
                   enableReinitialize={true}
                   initialValues={{email: userName?userName:"", password: password?password:"", newEmail: "", newPassword: ""}}
                   onSubmit={(values) => {
-                    axios.put("http://192.168.100.20:3001/changeuserdetails",values)
+                    axios.put(`${process.env.EXPO_PUBLIC_API_SERVERURL}/changeuserdetails`,values)
                     .then (async(res) => {
                       console.log(res.data)
                     }).catch((error) => console.log(error))

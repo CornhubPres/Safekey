@@ -8,16 +8,18 @@ export default function ViewAllPasswords({ navigation }) {
     const [passwords, setPasswords] = useState([])
     const [userId, setUserId] = useState('')
 
-    const getallPasswords = async () => { setUserId(await AsyncStorage.getItem("userID"))
-    axios.get(`http://192.168.100.20:3001/save/${userId}`)
-    .then((res) => {
-         setPasswords(res.data)
-    }).catch((error) => console.log(error))}
+    const getallPasswords = async () => { 
+        const Uid = await AsyncStorage.getItem("userID")
+        setUserId(Uid)
+   }
 
     useEffect(() => {
         getallPasswords()
-        
-        }, []
+        axios.get(`${process.env.EXPO_PUBLIC_API_SERVERURL}/save/${userId}`)
+        .then((res) => {
+             setPasswords(res.data)
+        }).catch((error) => console.log(error))
+        }, [userId]
     )
     return(
         <View style={{flex: 1, backgroundColor: '#3E3E3E', padding: 30, justifyContent: 'center', gap: 10}}>

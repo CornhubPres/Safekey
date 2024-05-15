@@ -13,7 +13,7 @@ export default function Register({navigation}){
         enableReinitialize={true}
         initialValues={{email: "", password: ""}}
         onSubmit={(values) => {
-          axios.post("http://192.168.100.20:3001/createaccount", values)
+          axios.post(`${process.env.EXPO_PUBLIC_API_SERVERURL}/createaccount`, values)
           .then (async(res) => {       
               navigation.navigate("Login")
           }).catch((error) => console.log(error))

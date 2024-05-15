@@ -23,7 +23,7 @@ export default function Login({navigation}){
         enableReinitialize={true}
         initialValues={{email: userName?userName:"", password: password?password:""}}
         onSubmit={(values) => {
-          axios.post("http://192.168.100.20:3001/signin", values)
+          axios.post(`${process.env.EXPO_PUBLIC_API_SERVERURL}/signin`, values)
           .then (async(res) => {
               await AsyncStorage.setItem("userName", res.data.user.email)
               await AsyncStorage.setItem("password", res.data.user.password)
