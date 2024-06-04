@@ -9,10 +9,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function StoreNewPassword({navigation}) {  
 
     const [userEmail, setuserEmail] = useState("");
+    const getuserEmail = async () => {const s = await AsyncStorage.getItem("userName"); setuserEmail(s) }
 
     useEffect (() => {
-        const getuserEmail = async () => {const s = await AsyncStorage.getItem("userName"); setuserEmail(s) }
+       const unsubscribe = navigation.addListener('focus', () => {
         getuserEmail()
+       });
+       
+       return unsubscribe;
     }, [])
     return(
     <View style={{flex: 1, backgroundColor: '#3E3E3E', padding: 30, justifyContent: 'center', gap: 10}}>

@@ -11,15 +11,20 @@ export default function ViewAllPasswords({ navigation }) {
     const getallPasswords = async () => { 
         const Uid = await AsyncStorage.getItem("userID")
         setUserId(Uid)
+
+        axios.get(`${process.env.EXPO_PUBLIC_API_SERVERURL}/save/${Uid}`)
+        .then((res) => {
+            setPasswords(res.data)
+        }).catch((error) => console.log(error))
    }
 
     useEffect(() => {
-        getallPasswords()
-        axios.get(`${process.env.EXPO_PUBLIC_API_SERVERURL}/save/${userId}`)
-        .then((res) => {
-             setPasswords(res.data)
-        }).catch((error) => console.log(error))
-        }, [userId]
+        const unsubscribe = navigation.addListener('focus', () => {
+            getallPasswords()
+        });
+
+        return unsubscribe;
+        }, []
     )
     return(
         <View style={{flex: 1, backgroundColor: '#3E3E3E', padding: 30, justifyContent: 'center', gap: 10}}>

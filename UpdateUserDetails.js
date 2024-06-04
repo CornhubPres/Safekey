@@ -31,6 +31,8 @@ export default function UpdateUserDetails() {
                   onSubmit={(values) => {
                     axios.put(`${process.env.EXPO_PUBLIC_API_SERVERURL}/changeuserdetails`,values)
                     .then (async(res) => {
+                      await AsyncStorage.setItem("userName", values.email)
+                      await AsyncStorage.setItem("password", values.password)
                       console.log(res.data)
                     }).catch((error) => console.log(error))
                   }}
